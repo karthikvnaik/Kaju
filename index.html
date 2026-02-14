@@ -123,7 +123,7 @@ button {
 <div class="moon"></div>
 
 <div class="container">
-    <h1>Will you be my Valentine Ruju? 💖</h1>
+    <h1 id="question">Will you be my Valentine Ruju? 💖</h1>
     <button id="yesBtn">Yes 💘</button>
     <button id="noBtn">No 😢</button>
     <div id="message">Yaaay!!! You make my universe brighter 🌙✨💞</div>
@@ -158,15 +158,22 @@ noBtn.addEventListener("click", (e) => {
 });
 
 // YES button action
-yesBtn.addEventListener("click", () => {
-    message.style.display = "block";
+const question = document.getElementById("question");
 
-    // Remove buttons after click
+yesBtn.addEventListener("click", () => {
+    // Remove question
+    question.style.display = "none";
+
+    // Remove buttons
     yesBtn.style.display = "none";
     noBtn.style.display = "none";
 
+    // Show celebration message
+    message.style.display = "block";
+
     createShootingStars();
 });
+
 
 // Improved Shooting Stars
 function createShootingStars() {
