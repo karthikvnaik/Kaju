@@ -150,7 +150,7 @@ setInterval(() => {
     const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
     noBtn.style.left = `${x}px`;
     noBtn.style.top = `${y}px`;
-}, 1000);
+}, 900);
 
 // Prevent clicking NO
 noBtn.addEventListener("click", (e) => {
@@ -160,23 +160,46 @@ noBtn.addEventListener("click", (e) => {
 // YES button action
 yesBtn.addEventListener("click", () => {
     message.style.display = "block";
+
+    // Remove buttons after click
+    yesBtn.style.display = "none";
+    noBtn.style.display = "none";
+
     createShootingStars();
 });
 
-// Create shooting stars
+// Improved Shooting Stars
 function createShootingStars() {
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 20; i++) {
         setTimeout(() => {
             const star = document.createElement("div");
             star.className = "shooting-star";
+
+            // Start randomly across top
             star.style.top = Math.random() * 200 + "px";
-            star.style.left = Math.random() * 200 + "px";
+            star.style.left = Math.random() * window.innerWidth + "px";
+
             document.body.appendChild(star);
-            setTimeout(() => star.remove(), 1000);
+
+            // Animate diagonally down-left
+            const xMove = - (Math.random() * 600 + 300);
+            const yMove = Math.random() * 600 + 300;
+
+            star.animate([
+                { transform: "translate(0,0) rotate(45deg)", opacity: 1 },
+                { transform: `translate(${xMove}px, ${yMove}px) rotate(45deg)`, opacity: 0 }
+            ], {
+                duration: 1200,
+                easing: "ease-out"
+            });
+
+            setTimeout(() => star.remove(), 1200);
+
         }, i * 200);
     }
 }
 </script>
+
 
 </body>
 </html>
